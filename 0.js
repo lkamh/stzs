@@ -1,3 +1,4 @@
+auto.waitFor();
 /*
     @author: mondayfirst
     @github: https://github.com/mondayfirst/XXQG_TiKu
