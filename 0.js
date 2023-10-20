@@ -1,4 +1,5 @@
 auto.waitFor();
+events.observeToast();//开启 Toast 监听，Toast 监听依赖于无障碍服务，因此此函数会确保无障碍服务运行
 /*
     @author: mondayfirst
     @github: https://github.com/mondayfirst/XXQG_TiKu
