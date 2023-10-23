@@ -347,7 +347,7 @@ function do_duizhan1(renshu) {
         //images.save(allx_img, '/sdcard/1/x_img' + num + '.png');
         let xuan_txt_list = [];
         let allx_txt = "";
-        let x_results = JSON.parse(JSON.stringify(gmlkit.ocr(img, "zh").toArray(3)));
+        let x_results = googleOcr.detect(img);
         allx_txt = ocr_rslt_to_txt(x_results).replace(/\s+/g, "");
         console.timeEnd("选项识别");
         // log(allx_txt);
@@ -548,26 +548,27 @@ function ocr_rslt_to_txt(result) {
     let txt_list = [];
     for (let idx in result) {
         if (top == 0) {
-            top = result[idx].bounds.top;
+            top = result[idx]['bounds']['top'];
         }
         if (previous_left == 0) {
-            previous_left = result[idx].bounds.left;
+            previous_left = result[idx]['bounds']['top'];
         }
-        if (result[idx].bounds.top >= top - 10 && result[idx].bounds.top <= top + 10) {
-            if (result[idx].bounds.left > previous_left) {
+        if (result[idx]['bounds']['top'] >= top - 10 && result[idx]['bounds']['top'] <= top + 10) {
+            if (result[idx]['bounds']['left'] > previous_left) {
                 txt = txt + "   " + result[idx].text;
             } else {
                 txt = result[idx].text + "   " + txt;
             }
         } else {
-            top = result[idx].bounds.top;
+            top = result[idx]['bounds']['top'];
             txt_list.push(txt);
             txt = result[idx].text;
         }
         if (idx == result.length - 1) {
             txt_list.push(txt);
+            break
         }
-        previous_left = result[idx].bounds.left;
+        previous_left = result[idx]['bounds']['left'];
     }
     //每行直接加个换行
     let ans = txt_list.join("\n");
@@ -821,7 +822,7 @@ function fRefocus() {
 //Google OCR配置函数
 function google_ocr_api(img) {
     console.log('GoogleMLKit文字识别中');
-    let list = JSON.parse(JSON.stringify(gmlkit.ocr(img, "zh").toArray(3))); // 识别文字，并得到results
+    let list = googleOcr.detect(img); // 识别文字，并得到results
     let eps = 30; // 坐标误差
     for (
         var i = 0; i < list.length; i++ // 选择排序对上下排序,复杂度O(N²)但一般list的长度较短只需几十次运算
