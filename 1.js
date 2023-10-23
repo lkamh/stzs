@@ -63,6 +63,16 @@ if (!requestScreenCapture(false)) { // false为竖屏方向
     fError('请求截图失败');
     exit();
 }
+//加载Google OCR插件
+fInfo("初始化MLkitOCR插件");
+try {
+    var MLKitOCR = plugins.load('org.autojs.autojspro.plugin.mlkit.ocr');
+    var googleOcr = new MLKitOCR();
+} catch (e) {
+    fError("GoogleMLKit插件加载失败");
+    exit();
+}
+
 // 防止设备息屏
 fInfo("设置屏幕常亮");
 device.keepScreenOn(3600 * 1000);
