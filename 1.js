@@ -109,7 +109,7 @@ nolocate_thread.isAlive() && (nolocate_thread.interrupt(), fInfo("终止位置�
 //四人赛跑题库
 fClear();
 text("我的").findOne().click();
-sleep(5000);
+sleep(3000);
 fInfo("OCR识字点击：我要答题");
 clicktext("我要答题");
 sleep(3000);
