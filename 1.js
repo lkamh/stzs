@@ -245,7 +245,7 @@ function do_duizhan1(renshu) {
             sleep(200);
             continue;
         }
-        sleep(100); // 追求极限速度，不知道会不会出错
+        // sleep(100); // 追求极限速度，不知道会不会出错
         let view_d28 = className("android.view.View").depth(28).indexInParent(0).findOne(1000);
         if (!view_d28) {
             toastLog("找不到view_d28");
