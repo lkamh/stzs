@@ -213,7 +213,6 @@ function do_duizhan1(renshu) {
     fInfo("");//加个空对象，方便后面启用fset
     let num = 1;
     for (let x = 1; x <= 30;) {
-        let y = 1;//用作刷题库序号
         fSet("title", "第" + x + "轮");
         while (num != 1) {
             // 检测是否结束并退出
@@ -499,7 +498,6 @@ function do_duizhan1(renshu) {
             continue;
         }
         num++;
-        y++;
     }
 }
 
@@ -882,8 +880,8 @@ function clicktext(wenzi) {
 //更新题库
 function post_answer_to_json(question, answers, true_ans) {
     // 发送题目到Json更新答案
-    question = y + "."+ question.replace(/ /g, "");//y是题目序号
-    var key = join_answers_with_true(answers, true_ans);
+    question = question.replace(/ /g, "")
+    var key = join_answers_with_true(answers, true_ans)
     console.log(key);
     globalTiku[question] = key;
     files.write(save_path, JSON.stringify(globalTiku))
