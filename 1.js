@@ -213,7 +213,7 @@ function do_duizhan1(renshu) {
     fInfo("");//加个空对象，方便后面启用fset
     let num = 1;
     for (let x = 1; x <= 30;) {
-        // let y = 1;//用作刷题库序号
+        
         fSet("title", "第" + x + "轮");
         while (num != 1) {
             // 检测是否结束并退出
@@ -429,12 +429,14 @@ function do_duizhan1(renshu) {
             if (ans_list.length > 1) {
                 fTips("匹配答案:" + ans_txt);
             }
+            let y = 1;//用作刷题库序号
+            let serial_que = y + "." + que_txt
             if (right_xuan != '') {
                 let idx = idx_dict[right_xuan];
                 fInfo("最终:" + right_xuan);
                 try {
                     className("android.widget.RadioButton").findOnce(idx).parent().click();
-                    if(post_answer_to_json(que_txt, allx_txt, ans_txt)){//将问题答案写入文件
+                    if(post_answer_to_json(serial_que, allx_txt, ans_txt)){//将问题答案写入文件
                         fTips("写入题库成功");
                     }else{
                         fError("题库写入失败");
@@ -491,6 +493,7 @@ function do_duizhan1(renshu) {
                     continue;
                 }
             }
+            y++;
 
         } else {
             fError("未识别出选项，随机选择");
