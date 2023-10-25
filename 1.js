@@ -430,7 +430,7 @@ function do_duizhan1(renshu) {
                 fTips("匹配答案:" + ans_txt);
             }
             let y = 1;//用作刷题库序号
-            let serial_que = y + "." + que_txt
+            let serial_que = y + "." + que_txt;
             if (right_xuan != '') {
                 let idx = idx_dict[right_xuan];
                 fInfo("最终:" + right_xuan);
