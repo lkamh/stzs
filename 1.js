@@ -884,7 +884,7 @@ function clicktext(wenzi) {
 //更新题库
 function post_answer_to_json(question, answers, true_ans) {
     // 发送题目到Json更新答案
-    question = question.replace(/ /g, "");//y是题目序号
+    question = question.replace(/ /g, "");
     var key = join_answers_with_true(answers, true_ans);
     console.log(key);
     globalTiku[question] = key;
