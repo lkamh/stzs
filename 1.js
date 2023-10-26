@@ -137,7 +137,7 @@ var zhaose_thread = threads.start(function () {
         if (img3 == null) continue;
         if (img3) {
             if (images.findColor(img3, "#F54F75", {
-                threshold: 20
+                threshold: 40
             })) {
                 fError("找色线程识别到红色错题标记");
                 let jingmiao = new Date().toISOString().slice(0, 19).replace(/[-:]/g, "");
