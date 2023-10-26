@@ -148,18 +148,19 @@ var zhaose_thread = threads.start(function () {
                 img3 = null;
                 img2.recycle();
                 continue
-            }else {
-            console.log("没有找到错题");
-            img3.recycle();
-            img3 = null;
-            img2.recycle();
-            continue
+            } else {
+                console.log("没有找到错题");
+                img3.recycle();
+                img3 = null;
+                img2.recycle();
+                continue
+            }
         }
     }
-}});
-if(zhaose_thread){
+});
+if (zhaose_thread) {
     toastLog("找色线程已开启")
-}else{
+} else {
     throw "找色线程未开启"
 }
 //点击四人赛
@@ -179,22 +180,22 @@ finish();//结束刷题
 
 /*****************结束后配置*****************/
 function finish() {
-  fInfo("已全部结束");
-  // 调回原始音量
+    fInfo("已全部结束");
+    // 调回原始音量
 
-  // 取消屏幕常亮
-  fInfo("取消屏幕常亮");
-  device.cancelKeepingAwake();
-  // exit_app("学习强国");
+    // 取消屏幕常亮
+    fInfo("取消屏幕常亮");
+    device.cancelKeepingAwake();
+    // exit_app("学习强国");
 
-  // 震动提示
-  device.vibrate(500);
-  fInfo("十秒后关闭悬浮窗");
-  device.cancelVibration();
-  sleep(10000);
-  console.hide();
-  home();
-  exit();
+    // 震动提示
+    device.vibrate(500);
+    fInfo("十秒后关闭悬浮窗");
+    device.cancelVibration();
+    sleep(10000);
+    console.hide();
+    home();
+    exit();
 }
 /********双人、四人赛*********/
 function do_duizhan1(renshu) {
@@ -213,7 +214,7 @@ function do_duizhan1(renshu) {
     fInfo("");//加个空对象，方便后面启用fset
     let num = 1;
     for (let x = 1; x <= 30;) {
-        
+
         fSet("title", "第" + x + "轮");
         while (num != 1) {
             // 检测是否结束并退出
@@ -436,9 +437,9 @@ function do_duizhan1(renshu) {
                 fInfo("最终:" + right_xuan);
                 try {
                     className("android.widget.RadioButton").findOnce(idx).parent().click();
-                    if(post_answer_to_json(serial_que, allx_txt, ans_txt)){//将问题答案写入文件
+                    if (post_answer_to_json(serial_que, allx_txt, ans_txt)) {//将问题答案写入文件
                         fTips("写入题库成功");
-                    }else{
+                    } else {
                         fError("题库写入失败");
                     }
                     //截图保存
@@ -483,6 +484,7 @@ function do_duizhan1(renshu) {
                         continue;
                     }
                 }
+                y++;
             } else {
                 try {
                     className("android.widget.RadioButton").findOnce().parent().click();
@@ -493,7 +495,6 @@ function do_duizhan1(renshu) {
                     continue;
                 }
             }
-            y++;
         } else {
             fError("未识别出选项，随机选择");
             className("android.widget.RadioButton").findOnce(random(0, radio_num - 1)).parent().click();
@@ -501,7 +502,6 @@ function do_duizhan1(renshu) {
             continue;
         }
         num++;
-        
     }
 }
 
@@ -892,7 +892,7 @@ function post_answer_to_json(question, answers, true_ans) {
     return true
 }
 //连接题目和答案
-function join_answers_with_true(answers,true_ans) {
+function join_answers_with_true(answers, true_ans) {
     var key = answers + "，" + true_ans;
     return key
 }
@@ -906,6 +906,6 @@ function hint_veri() {
         //     alert("已退出!");
         sleep(2000);
         finish();//结束刷题
-    //     }
+        //     }
     }
 }
