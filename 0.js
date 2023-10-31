@@ -121,18 +121,21 @@ function jump_tips_ErrorAnswer() {
            sleep(2000);
            text("再来一局").findOne().click();
         }
+        console.log("处理完结束本局提示")
         return true;
     }else if(text("challenge.66a1baf9").exists() || text("finish.7e0c026a").exists() || text("exceed.c9fe4914").exists()){
         sleep(3000);
         text("再来一局").findOne().click();
+        console.log("处理完代码存在提示");
         return true;
         }
-    //console.log("未检测到答题失败");
+    console.log("未检测到答题失败");
     return false;
 }
 function jump_tips_50TrueQuestions() {
     //console.log("开始检测50题选项");
     if (text("结束本局").exists() && text("continue.d28dbd3b").exists()) {
+        sleep(2000);
         text("继续").findOne(3000).click()
         console.log("50题提示已执行通过");
         return true;
