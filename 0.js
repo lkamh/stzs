@@ -178,9 +178,9 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
     else if (text(imagetext_false).exists()) {
         console.log("点击错误");
         // 点击错误，如果是非隐私安全模式，立刻截图更新答案
-        sleep(500);
         var true_ans = find_true_answer_from_img(answer_uis, answers_region);
         post_answer(question, answers, true_ans);
+        sleep(3000);
     } else {
         throw "Error:正确、错误image控件文本可能已经更换"
     }
