@@ -94,7 +94,7 @@ while (true) {
             console.log('新题目已更新到题库')
         }
     }
-    sleep(cycle_wait_time)
+    sleep(cycle_wait_time);
     // 处理答题失败和50题选项
     console.log("处理答题失败和50题选项");
     if (jump_tips_50TrueQuestions() || jump_tips_ErrorAnswer()) {
@@ -163,9 +163,9 @@ function swipe_to_view_the_last_answer(answer_uis) {
 }
 function click_answer_radio_button(answer_uis, question, answers, idx, isMustPost, obj_node) {
     answer_uis[idx].parent().click();
-    var ansb = obj_node.child(1).bounds()
+    var ansb = obj_node.child(1).bounds();
     var answers_region = [ansb.left, ansb.top, ansb.width(), ansb.height()]
-    sleep(200)
+    sleep(660);
     if (text(imagetext_true).exists()) {
         console.log("点击正确");
         // 点击正确，视参数来更新答案
