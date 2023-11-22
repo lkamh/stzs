@@ -94,7 +94,7 @@ while (true) {
             console.log('新题目已更新到题库')
         }
     }
-    sleep(cycle_wait_time)
+    sleep(cycle_wait_time);
     // 处理答题失败和50题选项
     console.log("处理答题失败和50题选项");
     if (jump_tips_50TrueQuestions() || jump_tips_ErrorAnswer()) {
@@ -121,18 +121,21 @@ function jump_tips_ErrorAnswer() {
            sleep(2000);
            text("再来一局").findOne().click();
         }
+        console.log("处理完结束本局提示")
         return true;
     }else if(text("challenge.66a1baf9").exists() || text("finish.7e0c026a").exists() || text("exceed.c9fe4914").exists()){
         sleep(3000);
         text("再来一局").findOne().click();
+        console.log("处理完代码存在提示");
         return true;
         }
-    //console.log("未检测到答题失败");
+    console.log("未检测到答题失败");
     return false;
 }
 function jump_tips_50TrueQuestions() {
     //console.log("开始检测50题选项");
     if (text("结束本局").exists() && text("continue.d28dbd3b").exists()) {
+        sleep(2000);
         text("继续").findOne(3000).click()
         console.log("50题提示已执行通过");
         return true;
@@ -160,9 +163,9 @@ function swipe_to_view_the_last_answer(answer_uis) {
 }
 function click_answer_radio_button(answer_uis, question, answers, idx, isMustPost, obj_node) {
     answer_uis[idx].parent().click();
-    var ansb = obj_node.child(1).bounds()
+    var ansb = obj_node.child(1).bounds();
     var answers_region = [ansb.left, ansb.top, ansb.width(), ansb.height()]
-    sleep(200)
+    sleep(660);
     if (text(imagetext_true).exists()) {
         console.log("点击正确");
         // 点击正确，视参数来更新答案
@@ -175,9 +178,9 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
     else if (text(imagetext_false).exists()) {
         console.log("点击错误");
         // 点击错误，如果是非隐私安全模式，立刻截图更新答案
-        sleep(500);
         var true_ans = find_true_answer_from_img(answer_uis, answers_region);
         post_answer(question, answers, true_ans);
+        sleep(2000);
     } else {
         throw "Error:正确、错误image控件文本可能已经更换"
     }
