@@ -430,11 +430,11 @@ function do_duizhan1(renshu) {
                 fTips("匹配答案:" + ans_txt);
             }
             let y = 1;//用作刷题库序号
-            let serial_que = y + "." + que_txt;
             if (right_xuan != '') {
                 let idx = idx_dict[right_xuan];
                 fInfo("最终:" + right_xuan);
                 try {
+                    let serial_que = y + "." + que_txt;
                     className("android.widget.RadioButton").findOnce(idx).parent().click();
                     if(post_answer_to_json(serial_que, allx_txt, ans_txt)){//将问题答案写入文件
                         fTips("写入题库成功");
@@ -886,7 +886,7 @@ function post_answer_to_json(question, answers, true_ans) {
     // 发送题目到Json更新答案
     question = question.replace(/ /g, "");//y是题目序号
     var key = join_answers_with_true(answers, true_ans);
-    console.log(key);
+    // console.log(key);
     globalTiku[question] = key;
     files.write(save_path, JSON.stringify(globalTiku))
     return true
