@@ -213,8 +213,8 @@ function do_duizhan1(renshu) {
     //答题后回到答题初始界面
     fInfo("");//加个空对象，方便后面启用fset
     let num = 1;
+    let y = 1;//用作刷题库序号
     for (let x = 1; x <= 30;) {
-
         fSet("title", "第" + x + "轮");
         while (num != 1) {
             // 检测是否结束并退出
@@ -430,7 +430,6 @@ function do_duizhan1(renshu) {
             if (ans_list.length > 1) {
                 fTips("匹配答案:" + ans_txt);
             }
-            let y = 1;//用作刷题库序号
             if (right_xuan != '') {
                 let idx = idx_dict[right_xuan];
                 fInfo("最终:" + right_xuan);
