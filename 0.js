@@ -101,6 +101,7 @@ while (true) {
         sleep(2000)
     }
     if(textContains("全部通关").exists()){
+        finish();
         break
     }
 }
@@ -362,4 +363,26 @@ function get_answer_from_json(question, answers) {
         }
     }
     return true_index
+}
+
+function finish(){
+    home();
+    sleep(5000);
+    text("文件管理").findOne().click();
+    sleep(4000);
+    text("我的手机").findOne().parent().parent().parent().parent().parent().click();
+    sleep(5000);
+    text("脚本").findOne().parent().parent().parent().click();
+    sleep(5000);
+    text("题库_排序版.json").findOne().parent().parent().parent().longClick();
+    sleep(5000);
+    text("分享").findOne().click();
+    sleep(5000);
+    text("发送给好友").findOne().parent().click();
+    sleep(5000);
+    text("既雨晴亦佳").findOne().parent().parent().click();
+    sleep(5000);
+    text("发送").findOne().click();
+    sleep(5000);
+    home();
 }
