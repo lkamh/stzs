@@ -223,7 +223,7 @@ function do_duizhan1(renshu) {
                 sleep(1000);
                 let tz_click = text("继续挑战").findOne().click();
                 fInfo("点击继续挑战:" + tz_click);
-                sleep(23000);//尝试增加等待时间，减少设备发热
+                sleep(3000);//尝试增加等待时间，减少设备发热
                 let bs_click = text("开始比赛").findOne().click();
                 fInfo("点击开始比赛:" + bs_click);
                 hint_veri();//检测是否用尽答题次数
