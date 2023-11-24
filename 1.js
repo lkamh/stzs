@@ -542,7 +542,7 @@ function get_tiku_by_http(link) {
             "User-Agent": random(0, 17),
         },
     });
-    log(req.statusCode);//statusCode为当前响应的HTTP状态码。例如200(OK), 404(Not Found)
+    log("状态码：" + req.statusCode);//statusCode为当前响应的HTTP状态码。例如200(OK), 404(Not Found)
     // 更新题库时若获取不到，则文件名+1
     if (req.statusCode != 200) {
         throw "网络原因未获取到题库，请尝试切换流量或者更换114DNS，退出脚本";
