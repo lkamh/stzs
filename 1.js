@@ -407,7 +407,7 @@ function do_duizhan1(renshu) {
         if (xuan_txt_list && xuan_txt_list.length != radio_num) {
             xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]|$)/gi);
         }
-        log(xuan_txt_list.toString());//输出清洗后的选项列表
+        log("清洗后：" + xuan_txt_list.toString());//输出清洗后的选项列表
 
         if (xuan_txt_list.length != 0) {
             let max_simi = 0;
@@ -415,7 +415,7 @@ function do_duizhan1(renshu) {
             let right_xuan2 = '';
             let ans_txt = '';
             for (let xuan_txt of xuan_txt_list) {
-                let txt = xuan_txt.replace(/^[A-Z]\.?/gi, "");;
+                let txt = xuan_txt.replace(/^[A-Z]\.?\,?/gi, "");;
                 for (let ans of ans_list) {
                     let similar = str_similar(ans, txt);
                     if (similar > max_simi) {
