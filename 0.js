@@ -189,8 +189,8 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
 function handling_submit_exceptions() {
     var thread_handling_submit_exceptions = threads.start(function () {
         while (true) {
-            text("提交失败").waitFor();
-            textContains("重试").className("android.widget.Button").findOne(3000).click()
+            textstartsWith("网络开小差").waitFor();
+            text("确定").className("android.widget.Button").findOne(3000).click();
             sleep(random_time(2000));
         }
     });
