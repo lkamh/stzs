@@ -131,10 +131,9 @@ activity.setSupportActionBar(ui.toolbar);
 
 function getScript(choice) {
     let url_prefix = [
-        'https://mirror.ghproxy.com/https://raw.githubusercontent.com/lkamh/waxx/main/',
-        'https://raw.fastgit.org/lkamh/waxx/main/',
-        'https://gh-proxy.com/https://raw.githubusercontent.com/lkamh/waxx/main/',
-        'https://gh.api.99988866.xyz/https://raw.githubusercontent.com/lkamh/waxx/main/'
+        'https://mirror.ghproxy.com/https://raw.githubusercontent.com/lkamh/stzs/main/',
+        'https://raw.fastgit.org/lkamh/stzs/main/',
+        'https://gh.api.99988866.xyz/https://raw.githubusercontent.com/lkamh/stzs/main/'
     ];
     for (var i = 0; i < url_prefix.length; i++) {
         try {

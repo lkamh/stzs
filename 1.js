@@ -78,7 +78,7 @@ fInfo("设置屏幕常亮");
 device.keepScreenOn(3600 * 1000);
 // 下载题库
 fInfo("检测题库更新");
-const update_info = get_tiku_by_http("https://gh.api.99988866.xyz/https://raw.githubusercontent.com/lkamh/waxx/main/info.json");
+const update_info = get_tiku_by_http("https://mirror.ghproxy.com/https://raw.githubusercontent.com/lkamh/waxx/main/info.json");
 fInfo("正在加载对战题库......请稍等\n题库版本:" + update_info["tiku_version"]);
 fInfo("如果不动就是正在下载，多等会");
 var tiku = [];
@@ -407,7 +407,7 @@ function do_duizhan1(renshu) {
         if (xuan_txt_list && xuan_txt_list.length != radio_num) {
             xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]|$)/gi);
         }
-        log(xuan_txt_list.toString());//输出清洗后的选项列表
+        log("清洗后：" + xuan_txt_list.toString());//输出清洗后的选项列表
 
         if (xuan_txt_list.length != 0) {
             let max_simi = 0;
@@ -415,7 +415,7 @@ function do_duizhan1(renshu) {
             let right_xuan2 = '';
             let ans_txt = '';
             for (let xuan_txt of xuan_txt_list) {
-                let txt = xuan_txt.replace(/^[A-Z]\.?/gi, "");;
+                let txt = xuan_txt.replace(/^[A-Z]\.?\,?/gi, "");;
                 for (let ans of ans_list) {
                     let similar = str_similar(ans, txt);
                     if (similar > max_simi) {
@@ -542,7 +542,7 @@ function get_tiku_by_http(link) {
             "User-Agent": random(0, 17),
         },
     });
-    log(req.statusCode);//statusCode为当前响应的HTTP状态码。例如200(OK), 404(Not Found)
+    log("状态码：" + req.statusCode);//statusCode为当前响应的HTTP状态码。例如200(OK), 404(Not Found)
     // 更新题库时若获取不到，则文件名+1
     if (req.statusCode != 200) {
         throw "网络原因未获取到题库，请尝试切换流量或者更换114DNS，退出脚本";
