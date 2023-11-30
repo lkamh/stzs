@@ -134,8 +134,9 @@ if (four_radio != null) {
 //开启找色线程
 var zhaose_thread = threads.start(function () {
     while (true) {
-        if (img3 == null) continue;
-        if (img3) {
+        if (img3 == null) {
+            continue;
+        }else{
             if (images.findColor(img3, "#F54F75", {
                 threshold: 40
             })) {
