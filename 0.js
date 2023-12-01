@@ -91,7 +91,8 @@ while (true) {
         else {
             // 如果没有查找到答案，就随机一个选项来点击，如果是非隐私模式，截屏查找正确答案，否则选项正确才更新答案
             click_answer_radio_button(a_uis, question, answers, random(0, a_uis.length - 1), true, obj_node);
-            console.error('新题目已更新到题库')
+            console.error('新题目已更新到题库');
+            sleep(2000);
         }
     }
     sleep(cycle_wait_time);
@@ -173,7 +174,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         var true_ans = answers[idx]
         console.log("正确答案是：" + true_ans);
         if (isMustPost) {
-            post_answer(question, answers, true_ans)
+            post_answer(question, answers, true_ans);
         }
     }
     else if (text(imagetext_false).exists()) {
