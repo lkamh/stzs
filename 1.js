@@ -215,9 +215,10 @@ function do_duizhan1(renshu) {
     fInfo("");//加个空对象，方便后面启用fset
     let num = 1;
     let y = 1;//用作刷题库序号
+    let err_flag = true;
     for (let x = 1; x <= 30;) {
         fSet("title", "第" + x + "轮");
-        while (num != 1) {
+        while (num != 1 && err_flag) {
             // 检测是否结束并退出
             if (text("继续挑战").exists()) {
                 fClear();
