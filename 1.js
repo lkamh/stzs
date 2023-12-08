@@ -148,13 +148,13 @@ var zhaose_thread = threads.start(function () {
                 img3.recycle();
                 img3 = null;
                 img2.recycle();
-                continue
+                continue;
             } else {
                 console.log("没有找到错题");
                 img3.recycle();
                 img3 = null;
                 img2.recycle();
-                continue
+                continue;
             }
         }
     }
