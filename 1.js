@@ -215,9 +215,10 @@ function do_duizhan1(renshu) {
     fInfo("");//加个空对象，方便后面启用fset
     let num = 1;
     let y = 1;//用作刷题库序号
+    let err_flag = true;
     for (let x = 1; x <= 30;) {
         fSet("title", "第" + x + "轮");
-        while (num != 1) {
+        while (num != 1 && err_flag) {
             // 检测是否结束并退出
             if (text("继续挑战").exists()) {
                 fClear();
@@ -398,6 +399,7 @@ function do_duizhan1(renshu) {
         }
         // allx_txt.replace(/令媛/g, "令嫒");
         // 获取选项列表
+        console.log("清洗一遍后：" + allx_txt.toString());
         xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]?\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]?|$)/gi);
         if (!xuan_txt_list) {
             log("识别不出选项");
