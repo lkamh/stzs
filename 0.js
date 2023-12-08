@@ -83,7 +83,8 @@ while (true) {
         // 滑动窗口
         swipe_to_view_the_last_answer(a_uis); // 滑动窗口来显示最后一个答案
         // 点击答案
-        var true_answer_index = get_answer(question, answers)
+        var true_answer_index = get_answer(question, answers);
+        console.log("开始点击");
         if (true_answer_index >= 0) {
             click_answer_radio_button(a_uis, question, answers, true_answer_index, false, obj_node);
             console.log("题库已收录此题目");
