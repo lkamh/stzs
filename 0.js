@@ -74,7 +74,7 @@ while (true) {
         // 获取目标控件和文本
         var q_ui = get_ui_question_from_obj_node(obj_node);
         var a_uis = get_ui_answsers_from_obj_node(obj_node);
-        var question = q_ui.text();
+        var question = q_ui.text().replace(/来源：.+$/, '');
         console.log(question);
         var answers = new Array()
         for (var i = 0; i < a_uis.length; i++) {
