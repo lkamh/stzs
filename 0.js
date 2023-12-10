@@ -75,6 +75,7 @@ while (true) {
         var q_ui = get_ui_question_from_obj_node(obj_node);
         var a_uis = get_ui_answsers_from_obj_node(obj_node);
         var question = q_ui.text();
+        console.log(question);
         var answers = new Array()
         for (var i = 0; i < a_uis.length; i++) {
             answers.push(a_uis[i].text())
