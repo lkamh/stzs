@@ -85,6 +85,7 @@ while (true) {
         swipe_to_view_the_last_answer(a_uis); // 滑动窗口来显示最后一个答案
         // 点击答案
         var true_answer_index = get_answer(question, answers);
+        console.log(true_answer_index);//打桩
         console.log("开始点击");
         if (true_answer_index >= 0) {
             click_answer_radio_button(a_uis, question, answers, true_answer_index, false, obj_node);
@@ -169,7 +170,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
     answer_uis[idx].parent().click();
     var ansb = obj_node.child(1).bounds();
     var answers_region = [ansb.left, ansb.top, ansb.width(), ansb.height()]
-    sleep(660);
+    sleep(500);
     if (text(imagetext_true).exists()) {
         console.log("点击正确");
         // 点击正确，视参数来更新答案
@@ -359,6 +360,7 @@ function get_answer_from_json(question, answers) {
     var true_index = -1
     var key = join_question_with_answer(question, answers)
     var true_ans = globalTiku[key]
+    console.log(true_ans)//打桩
     for (var i = 0; i < answers.length; i++) {
         if (true_ans == answers[i]) {
             true_index = i
