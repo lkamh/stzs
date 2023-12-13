@@ -135,13 +135,6 @@ function jump_tips_ErrorAnswer() {
         return true;
     }else if(text("challenge.66a1baf9").exists() || text("finish.7e0c026a").exists() || text("exceed.c9fe4914").exists()){
         sleep(3000);
-        var nowdate = new Date().getTime();
-        console.log((nowdate - globalLastdate))
-        console.log(start_wait_time)
-        if ((nowdate - globalLastdate) < start_wait_time) {
-            toastLog("等待" + (start_wait_time + (globalLastdate - nowdate)) + "毫秒")
-            sleep(random_time(start_wait_time + (globalLastdate - nowdate)))
-        }
         text("再来一局").findOne().click();
         console.log("处理完代码存在提示");
         return true;
