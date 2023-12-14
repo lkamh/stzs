@@ -113,20 +113,20 @@ exit();
 // =====================操作函数====================
 function jump_tips_ErrorAnswer() {
     //console.log("开始检测答题失败");
-    if (text("结束本局").exists() && !text("continue.d28dbd3b").exists()) {
+    if (text("结束本局").exists()) {
         sleep(3000);
-        var nowdate = new Date().getTime();
-        console.log((nowdate - globalLastdate))
-        console.log(start_wait_time)
-        if ((nowdate - globalLastdate) < start_wait_time) {
-            toastLog("等待" + (start_wait_time + (globalLastdate - nowdate)) + "毫秒")
-            sleep(random_time(start_wait_time + (globalLastdate - nowdate)))
-        }
         if(text("立即复活").exists()){
            sleep(2000);
            text("立即复活").findOne().click();
            sleep(2000);
         }else{
+            var nowdate = new Date().getTime();
+            console.log((nowdate - globalLastdate))
+            console.log(start_wait_time)
+            if ((nowdate - globalLastdate) < start_wait_time) {
+                toastLog("等待" + (start_wait_time + (globalLastdate - nowdate)) + "毫秒")
+                sleep(random_time(start_wait_time + (globalLastdate - nowdate)))
+            }
            text("结束本局").findOne().click();
            sleep(2000);
            text("再来一局").findOne().click();
