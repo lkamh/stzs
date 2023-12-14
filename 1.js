@@ -78,9 +78,10 @@ fInfo("设置屏幕常亮");
 device.keepScreenOn(3600 * 1000);
 // 下载题库
 fInfo("检测题库更新");
-const update_info = get_tiku_by_http("https://mirror.ghproxy.com/https://raw.githubusercontent.com/lkamh/waxx/main/info.json");
-fInfo("正在加载对战题库......请稍等\n题库版本:" + update_info["tiku_version"]);
 fInfo("如果不动就是正在下载，多等会");
+const update_info = get_tiku_by_http("https://mirror.ghproxy.com/https://raw.githubusercontent.com/lkamh/waxx/main/info.json");
+fInfo("正在加载对战题库......请稍等\n题库版本:" + update_info["tiku_link"].split('_')[1]);
+fInfo("题目数量:" + update_info["tiku_link"].split('_')[2].slice(0, -4));
 var tiku = [];
 try {
     tiku = get_tiku_by_http(update_info["tiku_link"]);
@@ -218,7 +219,7 @@ function do_duizhan1(renshu) {
     let err_flag = true;
     for (let x = 1; x <= 30;) {
         fSet("title", "第" + x + "轮");
-        while (num != 1 && err_flag) {
+        while (num != 1) {
             // 检测是否结束并退出
             if (text("继续挑战").exists()) {
                 fClear();
@@ -241,7 +242,6 @@ function do_duizhan1(renshu) {
             }
         }
         while (text("第" + num + "题").exists()) { } //sleep(100);
-        console.log("第" + num + "题出现");
         let listview = className("android.widget.ListView").findOne(1000);
         if (!listview) {
             log("找不到listview");
@@ -333,7 +333,7 @@ function do_duizhan1(renshu) {
         // 如果上面答案不唯一或者不包含找到的选项，直到选项完全出现在屏幕
         try {
             while (className("android.widget.ListView").findOne(1000).indexInParent() == 0) { }
-            //fTips("选项显现");
+            fTips("选项显现");
         } catch (e) {
             log("error2:", e);
             err_flag = false;
