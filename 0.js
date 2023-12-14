@@ -117,7 +117,7 @@ function jump_tips_ErrorAnswer() {
         sleep(3000);
         if(text("立即复活").exists()){
            sleep(2000);
-           text("立即复活").findOne().click();
+           console.log("点击立即复活：" + text("立即复活").findOne().click());
            sleep(2000);
         }else{
             var nowdate = new Date().getTime();
@@ -129,7 +129,7 @@ function jump_tips_ErrorAnswer() {
             }
            text("结束本局").findOne().click();
            sleep(2000);
-           text("再来一局").findOne().click();
+           console.log("点击再来一局：" + text("再来一局").findOne().click())
         }
         console.log("处理完结束本局提示")
         return true;
