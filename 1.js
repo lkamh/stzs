@@ -263,10 +263,8 @@ function do_duizhan1(renshu) {
             que_y = view_d28.bounds().top;
             que_w = view_d28.bounds().width();
             if (view_d28.child(0).text().length <= 4) { //有来源的是前面两个空格元素，文本为4个空格
-                fTips("有来源:" + view_d28.child(0).text().length);
                 que_h = view_d28.child(2).bounds().top - view_d28.bounds().top;
             } else { //无来源的是题目，文本为8个空格
-                fTips("无来源:" + view_d28.child(0).text().length);
                 que_h = view_d28.child(0).bounds().bottom - view_d28.bounds().top;
             }
         } else {
@@ -276,6 +274,7 @@ function do_duizhan1(renshu) {
             sleep(200);
             continue;
         }
+        console.log(que_x, que_y, que_w, que_h);
         // 查找选项个数
         var radio_num = className("android.widget.RadioButton").find().length;
         if (!radio_num) {
