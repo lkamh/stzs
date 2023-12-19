@@ -274,7 +274,7 @@ function do_duizhan1(renshu) {
             sleep(200);
             continue;
         }
-        console.log(que_x, que_y, que_w, que_h);
+
         // 查找选项个数
         var radio_num = className("android.widget.RadioButton").find().length;
         if (!radio_num) {
@@ -288,6 +288,10 @@ function do_duizhan1(renshu) {
             let img = captureScreen();
             // 裁剪题干区域，识别题干
             let que_img = images.clip(img, que_x, que_y, que_w, que_h);
+            console.log(que_x, que_y, que_w, que_h);
+            if (que_h < 32) {
+              images.save(que_img, '/sdcard/跑题库/que_img' + num + '.png');
+            }
             //images.save(que_img, '/sdcard/1/que_img' + num + '.png');
             //       console.time('题目识别1');
             //       let results = ocr.recognize(que_img).results;
