@@ -108,6 +108,8 @@ while (true) {
         finish();
         break
     }
+    //走完过渡
+    while(className("android.widget.ListView").depth(25).indexInParent(1).exists()){};
 }
 exit();
 // ================================================
