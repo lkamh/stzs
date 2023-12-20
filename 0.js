@@ -14,7 +14,7 @@ var ct_path = "/sdcard/脚本/错题.json"
 var imagetext_true = "SGLxINmefgEhdVfQxDvcygAAAABJRU5ErkJggg=="// 答题正确时Image控件文本
 var imagetext_false = "LqFTlORbAU3kyEmgqiqE0FUU7iGyTs0AbJ0AEAbUJkGsQXyjcAAAAASUVORK5CYII=" // 答题错误时Image控件文本
 
-var cycle_wait_time = 100 // 单位是毫秒
+var cycle_wait_time = 200 // 单位是毫秒
 var start_wait_time = 10000 // 每轮答题最低时长，单位是毫秒
 var globalLastdate = new Date().getTime();
 
@@ -64,7 +64,7 @@ while (true) {
     // 获取根节点
     //globalIsObjFrame = false    
     //更改depth为24，尝试修复不检测答题失败情况
-    if (!className("android.widget.Image").depth(26).textMatches(/\S+/).exists()) {
+    if (!className("android.widget.Image").depth(24).textMatches(/\S+/).exists()) {
         sleep(100)
         var obj_node = get_ui_obj_from_posstr(挑战答题索引)
         if (obj_node == null) {
