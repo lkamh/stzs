@@ -67,6 +67,7 @@ while (true) {
         sleep(100)
         var obj_node = get_ui_obj_from_posstr(挑战答题索引)
         if (obj_node == null) {
+            console.log("找不到挑战答题索引")
             sleep(random_time(1000))
             continue
         }
