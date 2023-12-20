@@ -367,6 +367,7 @@ function do_duizhan1(renshu) {
         let xuan_txt_list = [];
         let allx_txt = "";
         let x_results = googleOcr.detect(img);
+        console.log(x_results);//打桩看哪里有问题
         allx_txt = ocr_rslt_to_txt(x_results).replace(/\s+/g, "");
         console.timeEnd("选项识别");
         // log(allx_txt);
