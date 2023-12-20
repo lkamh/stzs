@@ -63,6 +63,7 @@ console.log("开始循环答题");
 while (true) {
     // 获取根节点
     //globalIsObjFrame = false    
+    //更改depth为24，尝试修复不检测答题失败情况
     if (!className("android.widget.Image").depth(24).textMatches(/\S+/).exists()) {
         sleep(100)
         var obj_node = get_ui_obj_from_posstr(挑战答题索引)
