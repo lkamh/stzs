@@ -27,7 +27,9 @@ var globalLastdate = new Date().getTime();
 var globalAnswerRunning = false
 var globalLastdate = new Date().getTime();
 var globalIsObjFrame = false
-var 文字识别插件 = "谷歌"
+
+let utils = require("utils.js");
+var 文字识别插件 = "谷歌";
 utils.initOcr(文字识别插件);
 
 // 自动允许权限进程
