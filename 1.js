@@ -267,6 +267,10 @@ function do_duizhan1(renshu) {
             } else { //无来源的是题目，文本为8个空格
                 que_h = view_d28.child(0).bounds().bottom - view_d28.bounds().top;
             }
+            if (que_h < 32) {
+                fError("图片高度不够");
+                continue;
+            }
         } else {
             toastLog("找不到框体");
             log(view_d28.childCount(), view_d28.bounds());
@@ -290,7 +294,8 @@ function do_duizhan1(renshu) {
             let que_img = images.clip(img, que_x, que_y, que_w, que_h);
             console.log(que_x, que_y, que_w, que_h);
             if (que_h < 32) {
-              images.save(que_img, '/sdcard/跑题库/que_img' + num + '.png');
+                images.save(que_img, '/sdcard/跑题库/que_img' + num + '.png');
+                continue;
             }
             //images.save(que_img, '/sdcard/1/que_img' + num + '.png');
             //       console.time('题目识别1');
@@ -368,7 +373,14 @@ function do_duizhan1(renshu) {
         let allx_txt = "";
         let x_results = googleOcr.detect(img);
         console.log(x_results);//打桩看哪里有问题
-        allx_txt = ocr_rslt_to_txt(x_results).replace(/\s+/g, "");
+        try {
+            allx_txt = ocr_rslt_to_txt(x_results).replace(/\s+/g, "");
+        } catch (e) {
+            log("error6:", e);
+            err_flag = false;
+            sleep(200);
+            continue;
+        }
         console.timeEnd("选项识别");
         // log(allx_txt);
         if (!allx_txt) {
