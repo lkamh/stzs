@@ -43,7 +43,7 @@ threads.start(function () {
     }
     toastLog("结束获取截图权限");
 });
-fInfo("请求截图权限");
+console.log("请求截图权限");
 // 请求截图权限、似乎请求两次会失效
 if (!requestScreenCapture(false)) { // false为竖屏方向
     console.log('请求截图失败');
@@ -497,7 +497,7 @@ function exit_app(name) {
             return false;
         }
         log("sure click:", sure.click());
-        fInfo(appName + "应用已被关闭");
+        console.log(appName + "应用已被关闭");
         sleep(1000);
         back();
     } else {
