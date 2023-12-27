@@ -27,6 +27,8 @@ var globalLastdate = new Date().getTime();
 var globalAnswerRunning = false
 var globalLastdate = new Date().getTime();
 var globalIsObjFrame = false
+// 初始化宽高
+var [device_w, device_h] = init_wh();//init_wh()是返回设备宽和高的函数
 
 let utils = require("utils.js");
 var 文字识别插件 = "谷歌";
@@ -519,4 +521,21 @@ function clicktext(wenzi) {
     utils.regionalClickText2(img, 0, 0, device_w, device_h, 60, 255, wenzi, false, false, () => { toastLog("找到文字" + "“" + wenzi + "”") });
     utils.recycleNull(img);
     return true
+}
+
+// 屏幕宽高、方向初始化
+function init_wh() {
+    console.log("屏幕方向检测");
+    log(device.width + "*" + device.height);
+    var device_w = depth(0).findOne().bounds().width();
+    var device_h = depth(0).findOne().bounds().height();
+    log(device_w + "*" + device_h);
+    if (device.width == device_h && device.height == device_w) {
+        console.error("设备屏幕方向检测为横向，后续运行很可能会报错，建议调整后重新运行脚本");
+        sleep(10000);
+    } else if (device.width == 0 || device.height == 0) {
+        console.error("识别不出设备宽高，建议重启强国助手后重新运行脚本");
+        sleep(10000);
+    }
+    return [device_w, device_h]
 }
