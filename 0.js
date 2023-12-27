@@ -13,7 +13,7 @@ var tk_path = "/sdcard/脚本/题库_排序版.json" // 本地题库路径
 var ct_path = "/sdcard/脚本/错题.json"
 var imagetext_true = "SGLxINmefgEhdVfQxDvcygAAAABJRU5ErkJggg=="// 答题正确时Image控件文本
 var imagetext_false = "LqFTlORbAU3kyEmgqiqE0FUU7iGyTs0AbJ0AEAbUJkGsQXyjcAAAAASUVORK5CYII=" // 答题错误时Image控件文本
-
+var is_exit = true;
 var cycle_wait_time = 700 // 单位是毫秒
 var start_wait_time = 10000 // 每轮答题最低时长，单位是毫秒
 var globalLastdate = new Date().getTime();
@@ -235,25 +235,15 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         if (isMustPost) {
             post_answer(question, answers, true_ans);
         }
-    }
-    else {
+    }else if (text(imagetext_false).exists()) {
         console.log("点击错误");
-        // 点击错误，如果是非隐私安全模式，立刻截图更新答案
         var true_ans = find_true_answer_from_img(answer_uis, answers_region);
         post_answer(question, answers, true_ans);
         sleep(2000);
+    } else {
+        throw "Error:正确、错误image控件文本可能已经更换"
     }
 }
-//     else if (text(imagetext_false).exists()) {
-//         console.log("点击错误");
-//         // 点击错误，如果是非隐私安全模式，立刻截图更新答案
-//         var true_ans = find_true_answer_from_img(answer_uis, answers_region);
-//         post_answer(question, answers, true_ans);
-//         sleep(2000);
-//     } else {
-//         throw "Error:正确、错误image控件文本可能已经更换"
-//     }
-// }
 
 function handling_submit_exceptions() {
     var thread_handling_submit_exceptions = threads.start(function () {
