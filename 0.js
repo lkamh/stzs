@@ -13,7 +13,7 @@ var tk_path = "/sdcard/脚本/题库_排序版.json" // 本地题库路径
 var ct_path = "/sdcard/脚本/错题.json"
 var imagetext_true = "SGLxINmefgEhdVfQxDvcygAAAABJRU5ErkJggg=="// 答题正确时Image控件文本
 var imagetext_false = "LqFTlORbAU3kyEmgqiqE0FUU7iGyTs0AbJ0AEAbUJkGsQXyjcAAAAASUVORK5CYII=" // 答题错误时Image控件文本
-var is_exit = true;
+
 var cycle_wait_time = 700 // 单位是毫秒
 var start_wait_time = 10000 // 每轮答题最低时长，单位是毫秒
 var globalLastdate = new Date().getTime();
@@ -27,42 +27,11 @@ var globalLastdate = new Date().getTime();
 var globalAnswerRunning = false
 var globalLastdate = new Date().getTime();
 var globalIsObjFrame = false
-// 初始化宽高
-var [device_w, device_h] = init_wh();//init_wh()是返回设备宽和高的函数
 
-let utils = require("utils.js");
-var 文字识别插件 = "谷歌";
-utils.initOcr(文字识别插件);
 
-// 自动允许权限进程
-threads.start(function () {
-    //在新线程执行的代码
-    toastLog("开始自动获取截图权限");
-    var btn = className("android.widget.Button").textMatches(/允许|立即开始|START NOW/).findOne(5000);
-    if (btn) {
-        sleep(1000);
-        btn.click();
-    }
-    toastLog("结束获取截图权限");
-});
-console.log("请求截图权限");
-// 请求截图权限、似乎请求两次会失效
-if (!requestScreenCapture(false)) { // false为竖屏方向
-    console.log('请求截图失败');
-    exit();
+if (!requestScreenCapture()) {
+     toast('请求截屏失败')// 请求截屏
 }
-
-
-if (is_exit) {
-    console.log("运行前重置学习APP");
-    exit_app("学习强国");
-    sleep(1500);
-    // fClear();
-}
-
-// launch('cn.xuexi.android');
-app.launchApp('学习强国');
-sleep(2000);
 
 var thread_handling_access_exceptions = handling_access_exceptions();
 var thread_handling_submit_exceptions = handling_submit_exceptions();
@@ -88,25 +57,6 @@ else {
     console.log("未选择题目答案的查找模式!退出中...")
     exit()
 }
-
-/*******************运行部分*******************/
-
-text("我的").findOne().click();
-sleep(3000);
-console.log("OCR识字点击：我要答题");
-clicktext("我要答题");
-sleep(3000);
-//检索点击我要答题四人赛按钮
-var challenge_radio = textStartsWith("challenge").findOne(6000);
-if (challenge_radio != null) {
-    challenge_radio.parent().click();
-} else {
-    exit();
-    throw ("未检测到挑战答题按钮，退出中……")
-}
-textStartsWith("total").findOne().parent().click();
-
-
 
 // 循环运行
 console.log("开始循环答题");
@@ -154,7 +104,7 @@ while (true) {
     if (jump_tips_50TrueQuestions() || jump_tips_ErrorAnswer()) {
         sleep(2000)
     }
-    if (textContains("全部通关").exists()) {
+    if(textContains("全部通关").exists()){
         finish();
         break
     }
@@ -168,11 +118,11 @@ function jump_tips_ErrorAnswer() {
     //console.log("开始检测答题失败");
     if (text("结束本局").exists()) {
         sleep(3000);
-        if (text("立即复活").exists()) {
-            sleep(2000);
-            console.log("点击立即复活：" + text("立即复活").findOne().click());
-            sleep(2000);
-        } else {
+        if(text("立即复活").exists()){
+           sleep(2000);
+           console.log("点击立即复活：" + text("立即复活").findOne().click());
+           sleep(2000);
+        }else{
             var nowdate = new Date().getTime();
             console.log((nowdate - globalLastdate))
             console.log(start_wait_time)
@@ -180,18 +130,18 @@ function jump_tips_ErrorAnswer() {
                 toastLog("等待" + (start_wait_time + (globalLastdate - nowdate)) + "毫秒")
                 sleep(random_time(start_wait_time + (globalLastdate - nowdate)))
             }
-            text("结束本局").findOne().click();
-            sleep(2000);
-            console.log("点击再来一局：" + text("再来一局").findOne().click())
+           text("结束本局").findOne().click();
+           sleep(2000);
+           console.log("点击再来一局：" + text("再来一局").findOne().click())
         }
         console.log("处理完结束本局提示")
         return true;
-    } else if (text("challenge.66a1baf9").exists() || text("finish.7e0c026a").exists() || text("exceed.c9fe4914").exists()) {
+    }else if(text("challenge.66a1baf9").exists() || text("finish.7e0c026a").exists() || text("exceed.c9fe4914").exists()){
         sleep(3000);
         text("再来一局").findOne().click();
         console.log("处理完代码存在提示");
         return true;
-    }
+        }
     console.log("未检测到答题失败");
     return false;
 }
@@ -239,6 +189,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         }
     }else if (text(imagetext_false).exists()) {
         console.log("点击错误");
+        // 点击错误，立刻截图更新答案
         var true_ans = find_true_answer_from_img(answer_uis, answers_region);
         post_answer(question, answers, true_ans);
         sleep(2000);
@@ -410,7 +361,7 @@ function post_answer_to_json(question, answers, true_ans) {
     files.write(tk_path, JSON.stringify(globalTiku));
     ErrorTiku[key] = true_ans;
     files.write(ct_path, JSON.stringify(ErrorTiku));
-
+    
 }
 
 function get_answer_from_json(question, answers) {
@@ -429,7 +380,7 @@ function get_answer_from_json(question, answers) {
     return true_index
 }
 
-function finish() {
+function finish(){
     home();
     sleep(5000);
     text("文件管理").findOne().click();
@@ -449,95 +400,4 @@ function finish() {
     text("发送").findOne().click();
     sleep(5000);
     home();
-}
-
-
-// 强行退出应用名称
-function exit_app(name) {
-    // fClear();
-    console.log("尝试结束" + name + "APP");
-    var packageName = getPackageName(name);
-    if (!packageName) {
-        if (getAppName(name)) {
-            packageName = name;
-        } else {
-            return false;
-        }
-    }
-    log("打开应用设置界面");
-    app.openAppSetting(packageName);
-    var appName = app.getAppName(packageName);
-    //log(appName);
-    log("等待加载界面")
-    //textMatches(/应用信息|应用详情/).findOne(5000);
-    text(appName).findOne(5000);
-    sleep(1500);
-    log("查找结束按钮")
-    //let stop = textMatches(/(^强行.*|.*停止$|^结束.*)/).packageNameMatches(/.*settings.*|.*securitycenter.*/).findOne();
-    let stop = textMatches(/(强.停止$|.*停止$|结束运行|停止运行|[Ff][Oo][Rr][Cc][Ee] [Ss][Tt][Oo][Pp])/).findOne(5000);
-    log("stop:", stop.enabled())
-    if (stop.enabled()) {
-        //log("click:", stop.click());
-        real_click(stop);
-        sleep(1000);
-        log("等待确认弹框")
-        //let sure = textMatches(/(确定|^强行.*|.*停止$)/).packageNameMatches(/.*settings.*|.*securitycenter.*/).clickable().findOne();
-        let sure = textMatches(/(确定|.*停止.*|[Ff][Oo][Rr][Cc][Ee] [Ss][Tt][Oo][Pp]|O[Kk])/).clickable().findOne(1500);
-        if (!sure) {
-            console.log(appName + "应用已关闭");
-            back();
-            return false;
-        }
-        log("sure click:", sure.click());
-        console.log(appName + "应用已被关闭");
-        sleep(1000);
-        back();
-    } else {
-        console.log(appName + "应用不能被正常关闭或不在后台运行");
-        sleep(1000);
-        back();
-    }
-    return true;
-}
-
-// 尝试成功点击
-function real_click(obj) {
-    for (let i = 1; i <= 3; i++) {
-        if (obj.click()) {
-            log("real click: true");
-            return true;
-        }
-        sleep(300);
-    }
-    console.warn("控件无法正常点击：", obj);
-    log("尝试再次点击");
-    click(obj.bounds().centerX(), obj.bounds().centerY());
-    return false;
-}
-
-//识字点击
-function clicktext(wenzi) {
-    let img = captureScreen();
-    toastLog("等待加载opencv")
-    sleep(3000);
-    utils.regionalClickText2(img, 0, 0, device_w, device_h, 60, 255, wenzi, false, false, () => { toastLog("找到文字" + "“" + wenzi + "”") });
-    utils.recycleNull(img);
-    return true
-}
-
-// 屏幕宽高、方向初始化
-function init_wh() {
-    console.log("屏幕方向检测");
-    log(device.width + "*" + device.height);
-    var device_w = depth(0).findOne().bounds().width();
-    var device_h = depth(0).findOne().bounds().height();
-    log(device_w + "*" + device_h);
-    if (device.width == device_h && device.height == device_w) {
-        console.error("设备屏幕方向检测为横向，后续运行很可能会报错，建议调整后重新运行脚本");
-        sleep(10000);
-    } else if (device.width == 0 || device.height == 0) {
-        console.error("识别不出设备宽高，建议重启强国助手后重新运行脚本");
-        sleep(10000);
-    }
-    return [device_w, device_h]
 }
