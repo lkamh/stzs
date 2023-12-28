@@ -381,6 +381,7 @@ function get_answer_from_json(question, answers) {
 }
 
 function finish(){
+    sleep(2000);
     home();
     sleep(5000);
     text("文件管理").findOne().click();
