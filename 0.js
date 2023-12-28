@@ -33,6 +33,9 @@ if (!requestScreenCapture()) {
      toast('请求截屏失败')// 请求截屏
 }
 
+// 初始化opencv
+runtime.images.initOpenCvIfNeeded();
+
 var thread_handling_access_exceptions = handling_access_exceptions();
 var thread_handling_submit_exceptions = handling_submit_exceptions();
 
@@ -380,6 +383,13 @@ function get_answer_from_json(question, answers) {
     return true_index
 }
 
+//加载opencv
+function opencv_init(){
+    let img_test = images.captureScreen();
+    sleep(2000);
+    img_test.recycle();
+}
+//结束后配置
 function finish(){
     sleep(2000);
     home();
