@@ -518,6 +518,7 @@ function real_click(obj) {
 //识字点击
 function clicktext(wenzi) {
     let img = captureScreen();
+    sleep(2000);
     utils.regionalClickText2(img, 0, 0, device_w, device_h, 60, 255, wenzi, false, false, () => { toastLog("找到文字" + "“" + wenzi + "”") });
     utils.recycleNull(img);
     return true
