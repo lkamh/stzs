@@ -418,7 +418,9 @@ function do_duizhan1(renshu) {
         // allx_txt.replace(/令媛/g, "令嫒");
         // 获取选项列表
         console.log("清洗一遍后：" + allx_txt.toString());
-        xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]?\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]?|$)/gi);
+        // xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]?\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]?|$)/gi);
+        //尝试修改正则，匹配非字母 a 到 d、非空格的任意字符序列
+        xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]?\s*[^a-d\s]+(?=[a-d][^a-z\u4e00-\u9fa5\d]?|$)/gi);
         if (!xuan_txt_list) {
             log("识别不出选项");
             err_flag = false;
