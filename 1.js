@@ -295,6 +295,7 @@ function do_duizhan1(renshu) {
             console.log(que_x, que_y, que_w, que_h);
             if (que_h < 32) {
                 images.save(que_img, '/sdcard/跑题库/que_img' + num + '.png');
+                console.error("题目长度不够32");
                 continue;
             }
             //images.save(que_img, '/sdcard/1/que_img' + num + '.png');
