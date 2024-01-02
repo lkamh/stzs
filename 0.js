@@ -98,6 +98,7 @@ while (true) {
             // 如果没有查找到答案，就随机一个选项来点击，如果是非隐私模式，截屏查找正确答案，否则选项正确才更新答案
             click_answer_radio_button(a_uis, question, answers, random(0, a_uis.length - 1), true, obj_node);
             console.error('新题目已更新到题库');
+            sleep(2000);
         }
     }
     sleep(cycle_wait_time);
