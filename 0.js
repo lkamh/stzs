@@ -80,7 +80,7 @@ while (true) {
         var q_ui = get_ui_question_from_obj_node(obj_node);
         var a_uis = get_ui_answsers_from_obj_node(obj_node);
         var question = q_ui.text();
-        var answers = new Array()
+        var answers = [];
         for (var i = 0; i < a_uis.length; i++) {
             answers.push(a_uis[i].text())
         }
@@ -98,7 +98,6 @@ while (true) {
             // 如果没有查找到答案，就随机一个选项来点击，如果是非隐私模式，截屏查找正确答案，否则选项正确才更新答案
             click_answer_radio_button(a_uis, question, answers, random(0, a_uis.length - 1), true, obj_node);
             console.error('新题目已更新到题库');
-            sleep(2000);
         }
     }
     sleep(cycle_wait_time);
@@ -181,22 +180,22 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
     answer_uis[idx].parent().click();
     var ansb = obj_node.child(1).bounds();
     var answers_region = [ansb.left, ansb.top, ansb.width(), ansb.height()]
-    // sleep(200);
-    // if (text(imagetext_true).exists()) {
-    //     console.log("点击正确");
-    //     // 点击正确，视参数来更新答案
-    //     var true_ans = answers[idx]
-    //     console.log("正确答案是：" + true_ans);
-    //     if (isMustPost) {
-    //         post_answer(question, answers, true_ans);
-    //     }
-    // }else{
-    //     console.log("点击错误");
-    //     // 点击错误，立刻截图更新答案
-    //     sleep(500);
-    //     var true_ans = find_true_answer_from_img(answer_uis, answers_region);
-    //     post_answer(question, answers, true_ans);
-    // }
+    sleep(200);
+    if (text(imagetext_true).exists()) {
+        console.log("点击正确");
+        // 点击正确，视参数来更新答案
+        var true_ans = answers[idx]
+        console.log("正确答案是：" + true_ans);
+        if (isMustPost) {
+            post_answer(question, answers, true_ans);
+        }
+    }else{
+        console.log("点击错误");
+        sleep(500);
+        // 点击错误，立刻截图更新答案
+        var true_ans = find_true_answer_from_img(answer_uis, answers_region);
+        post_answer(question, answers, true_ans);
+    }
     // else if (text(imagetext_false).exists()) {
     //     console.log("点击错误");
     //     // 点击错误，立刻截图更新答案
@@ -206,26 +205,6 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
     // } else {
     //     throw "Error:正确、错误image控件文本可能已经更换"
     // }
-    while(true){
-        if (text(imagetext_true).exists()) {
-            console.log("点击正确");
-            // 点击正确，视参数来更新答案
-            var true_ans = answers[idx]
-            console.log("正确答案是：" + true_ans);
-            if (isMustPost) {
-                post_answer(question, answers, true_ans);
-            }
-            break;
-        }else if (text(imagetext_false).exists()){
-            console.log("点击错误");
-            // 点击错误，立刻截图更新答案
-            sleep(500);
-            var true_ans = find_true_answer_from_img(answer_uis, answers_region);
-            post_answer(question, answers, true_ans);
-            break;
-        }
-        console.log("没有识别到正确错误标识");
-    }
 }
 
 function handling_submit_exceptions() {
