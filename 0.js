@@ -100,7 +100,7 @@ while (true) {
             console.error('新题目已更新到题库');
         }
     }
-    sleep(cycle_wait_time);
+    while(q_ui.text() == question){};
     // 处理答题失败和50题选项
     console.log("处理答题失败和50题选项");
     if (jump_tips_50TrueQuestions() || jump_tips_ErrorAnswer()) {
