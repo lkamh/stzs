@@ -99,8 +99,8 @@ while (true) {
             click_answer_radio_button(a_uis, question, answers, random(0, a_uis.length - 1), true, obj_node);
             console.error('新题目已更新到题库');
         }
-        while(q_ui.text() == question){};
     }
+    sleep(cycle_wait_time);
     // 处理答题失败和50题选项
     console.log("处理答题失败和50题选项");
     if (jump_tips_50TrueQuestions() || jump_tips_ErrorAnswer()) {
