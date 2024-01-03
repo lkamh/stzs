@@ -213,7 +213,7 @@ function handling_submit_exceptions() {
         while (true) {
             textStartsWith("网络开小差").waitFor();
             console.log("网络开小差");
-            text("确定").className("android.widget.Button").findOne(3000).click();
+            text("确定").findOne().click();
             sleep(2000);
             let ztk_click = text("total.88d389ee").findOne().click();
             console.log("点击强国总题库：" + ztk_click)
