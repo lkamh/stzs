@@ -384,12 +384,6 @@ function get_answer_from_json(question, answers) {
     return true_index
 }
 
-//加载opencv
-function opencv_init(){
-    let img_test = images.captureScreen();
-    sleep(2000);
-    img_test.recycle();
-}
 //结束后配置
 function finish(){
     sleep(2000);
