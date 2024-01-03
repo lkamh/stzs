@@ -137,7 +137,7 @@ var zhaose_thread = threads.start(function () {
     while (true) {
         if (img3 == null) {
             continue;
-        }else{
+        } else {
             if (images.findColor(img3, "#F54F75", {
                 threshold: 40
             })) {
@@ -219,7 +219,7 @@ function do_duizhan1(renshu) {
     let err_flag = true;
     for (let x = 1; x <= 30;) {
         fSet("title", "第" + x + "轮");
-        while (num != 1) {
+        while (num != 1 && err_flag) {
             // 检测是否结束并退出
             if (text("继续挑战").exists()) {
                 fClear();
@@ -238,7 +238,7 @@ function do_duizhan1(renshu) {
             } else if (text("第" + num + "题").exists()) {
                 fClear();
                 fInfo("第" + num + "题");
-                break
+                break;
             }
         }
         while (text("第" + num + "题").exists()) { } //sleep(100);
@@ -264,12 +264,26 @@ function do_duizhan1(renshu) {
             que_w = view_d28.bounds().width();
             if (view_d28.child(0).text().length <= 4) { //有来源的是前面两个空格元素，文本为4个空格
                 que_h = view_d28.child(2).bounds().top - view_d28.bounds().top;
+                if (que_h < 32) {
+                    fError("图片高度不够");
+                    console.log(view_d28.child(2).bounds().top, view_d28.bounds().top);
+                    let img = captureScreen();
+                    images.save(img, '/sdcard/跑题库/img' + num + '.png');
+                    img.recycle();
+                    err_flag = false;
+                    continue;
+                }
             } else { //无来源的是题目，文本为8个空格
                 que_h = view_d28.child(0).bounds().bottom - view_d28.bounds().top;
-            }
-            if (que_h < 32) {
-                fError("图片高度不够");
-                continue;
+                if (que_h < 32) {
+                    fError("图片高度不够");
+                    console.log(view_d28.child(0).bounds().bottom, view_d28.bounds().top);
+                    let img = captureScreen();
+                    images.save(img, '/sdcard/跑题库/img' + num + '.png');
+                    img.recycle();
+                    err_flag = false;
+                    continue;
+                }
             }
         } else {
             toastLog("找不到框体");
@@ -529,6 +543,7 @@ function do_duizhan1(renshu) {
             continue;
         }
         num++;
+        err_flag = true;//修正err_flag
     }
 }
 
