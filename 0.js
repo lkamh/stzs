@@ -61,6 +61,11 @@ else {
     exit()
 }
 
+// =====================程序执行阶段====================
+text("挑战答题").waitFor();
+sleep(2000);
+textContains("total").findOne().click();
+sleep(2000);
 // 循环运行
 console.log("开始循环答题");
 while (true) {
