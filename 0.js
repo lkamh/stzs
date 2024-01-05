@@ -17,6 +17,7 @@ var imagetext_false = "LqFTlORbAU3kyEmgqiqE0FUU7iGyTs0AbJ0AEAbUJkGsQXyjcAAAAASUV
 var cycle_wait_time = 1100 // 单位是毫秒
 var start_wait_time = 10000 // 每轮答题最低时长，单位是毫秒
 var globalLastdate = new Date().getTime();
+var re_times = 0;
 
 // ================================================
 // =====================主程序运行====================
@@ -30,7 +31,7 @@ var globalIsObjFrame = false
 
 
 if (!requestScreenCapture()) {
-     toast('请求截屏失败')// 请求截屏
+    toast('请求截屏失败')// 请求截屏
 }
 
 // 初始化opencv
@@ -92,7 +93,12 @@ while (true) {
         var true_answer_index = get_answer(question, answers);
         console.log("开始点击");
         if (true_answer_index >= 0) {
-            click_answer_radio_button(a_uis, question, answers, true_answer_index, false, obj_node);
+            let click_value = click_answer_radio_button(a_uis, question, answers, true_answer_index, false, obj_node);
+            //尝试修复旧机子因识别不到正确错误标识卡退
+            if(click_value){
+                sleep(6000);
+                continue;
+            }
             console.log("题库已收录此题目");
         }
         else {
@@ -108,7 +114,7 @@ while (true) {
     if (jump_tips_50TrueQuestions() || jump_tips_ErrorAnswer()) {
         sleep(2000)
     }
-    if(textContains("全部通关").exists()){
+    if (textContains("全部通关").exists()) {
         finish();
         break
     }
@@ -122,11 +128,11 @@ function jump_tips_ErrorAnswer() {
     //console.log("开始检测答题失败");
     if (text("结束本局").exists()) {
         sleep(3000);
-        if(text("立即复活").exists()){
-           sleep(2000);
-           console.log("点击立即复活：" + text("立即复活").findOne().click());
-           sleep(2000);
-        }else{
+        if (text("立即复活").exists()) {
+            sleep(2000);
+            console.log("点击立即复活：" + text("立即复活").findOne().click());
+            sleep(2000);
+        } else {
             var nowdate = new Date().getTime();
             console.log((nowdate - globalLastdate))
             console.log(start_wait_time)
@@ -134,18 +140,18 @@ function jump_tips_ErrorAnswer() {
                 toastLog("等待" + (start_wait_time + (globalLastdate - nowdate)) + "毫秒")
                 sleep(random_time(start_wait_time + (globalLastdate - nowdate)))
             }
-           text("结束本局").findOne().click();
-           sleep(2000);
-           console.log("点击再来一局：" + text("再来一局").findOne().click())
+            text("结束本局").findOne().click();
+            sleep(2000);
+            console.log("点击再来一局：" + text("再来一局").findOne().click())
         }
         console.log("处理完结束本局提示")
         return true;
-    }else if(text("challenge.66a1baf9").exists() || text("finish.7e0c026a").exists() || text("exceed.c9fe4914").exists()){
+    } else if (text("challenge.66a1baf9").exists() || text("finish.7e0c026a").exists() || text("exceed.c9fe4914").exists()) {
         sleep(3000);
         text("再来一局").findOne().click();
         console.log("处理完代码存在提示");
         return true;
-        }
+    }
     console.log("未检测到答题失败");
     return false;
 }
@@ -182,7 +188,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
     answer_uis[idx].parent().click();
     var ansb = obj_node.child(1).bounds();
     var answers_region = [ansb.left, ansb.top, ansb.width(), ansb.height()]
-    sleep(200);
+    sleep(266);
     if (text(imagetext_true).exists()) {
         console.log("点击正确");
         // 点击正确，视参数来更新答案
@@ -191,15 +197,22 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         if (isMustPost) {
             post_answer(question, answers, true_ans);
         }
-    }else if (text(imagetext_false).exists()) {
+    } else if (text(imagetext_false).exists()) {
         console.log("点击错误");
         // 点击错误，立刻截图更新答案
         var true_ans = find_true_answer_from_img(answer_uis, answers_region);
         post_answer(question, answers, true_ans);
         sleep(2000);
     } else {
-        throw "Error:正确、错误image控件文本可能已经更换"
+        //尝试修复旧机器卡退
+        if (re_times <= 3) {
+            re_times++;
+            return true;
+        } else {
+            throw "Error:正确、错误image控件文本可能已经更换";
+        }
     }
+    return false//增加返回，点击正常就不执行continue
 }
 
 function handling_submit_exceptions() {
@@ -367,7 +380,7 @@ function post_answer_to_json(question, answers, true_ans) {
     files.write(tk_path, JSON.stringify(globalTiku));
     ErrorTiku[key] = true_ans;
     files.write(ct_path, JSON.stringify(ErrorTiku));
-    
+
 }
 
 function get_answer_from_json(question, answers) {
@@ -387,7 +400,7 @@ function get_answer_from_json(question, answers) {
 }
 
 //结束后配置
-function finish(){
+function finish() {
     sleep(2000);
     home();
     sleep(5000);
