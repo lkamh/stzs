@@ -436,6 +436,7 @@ function do_duizhan1(renshu) {
         // allx_txt.replace(/令媛/g, "令嫒");
         // 获取选项列表
         console.log("清洗一遍后：" + allx_txt.toString());
+        xuan_txt_list1 = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]?\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]?|$)/gi);
         xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]?\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]?|$)/gi).map(item => item.replace(/[，,]/g, ''));
         if (!xuan_txt_list) {
             log("识别不出选项");
@@ -444,10 +445,12 @@ function do_duizhan1(renshu) {
             continue;
         }
         if (xuan_txt_list && xuan_txt_list.length != radio_num) {
-            xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]|$)/gi);
+            console.log("选项个数和读取个数不匹配处理");
+            xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]|$)/gi).map(item => item.replace(/[，,]/g, ''));
         }
         log(xuan_txt_list);
-        log("清洗后：" + xuan_txt_list.toString());//输出清洗后的选项列表
+        log("原作者清洗后：" + xuan_txt_list1.toString())
+        log("修正版清洗后：" + xuan_txt_list.toString());//输出清洗后的选项列表
 
         if (xuan_txt_list.length != 0) {
             let max_simi = 0;
