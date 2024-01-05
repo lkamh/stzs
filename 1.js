@@ -529,6 +529,7 @@ function do_duizhan1(renshu) {
             } else {
                 try {
                     className("android.widget.RadioButton").findOnce().parent().click();
+                    console.error("识别不出选项，盲选A");
                 } catch (e1) {
                     log("error4:", e1);
                     err_flag = false;
