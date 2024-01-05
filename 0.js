@@ -207,6 +207,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         //尝试修复旧机器卡退
         if (re_times <= 3) {
             re_times++;
+            console.error("尝试修复" + re_times + "次");
             return true;
         } else {
             throw "Error:正确、错误image控件文本可能已经更换";
