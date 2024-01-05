@@ -210,6 +210,7 @@ function handling_submit_exceptions() {
     var thread_handling_submit_exceptions = threads.start(function () {
         while (true) {
             textStartsWith("网络开小差").waitFor();
+            throw "网络开小差"
             sleep(1000);
             console.log("网络开小差");
             text("确定").findOne().click();
