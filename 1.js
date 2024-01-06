@@ -445,7 +445,7 @@ function do_duizhan1(renshu) {
             continue;
         }
         if (xuan_txt_list && xuan_txt_list.length != radio_num) {
-            console.log("选项个数和读取个数不匹配处理");
+            console.error("选项个数和识别个数不匹配处理");
             xuan_txt_list = allx_txt.match(/[a-d][^a-z\u4e00-\u9fa5\d]\s*.*?(?=[a-d][^a-z\u4e00-\u9fa5\d]|$)/gi).map(item => item.replace(/[，,]/g, ''));
         }
         log(xuan_txt_list);
