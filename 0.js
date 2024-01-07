@@ -218,7 +218,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         if (re_times < chongzhi_cishu) {
             re_times++;
             console.error("尝试修复第" + re_times + "次");
-            let currentTime = new Date().toLocaleString('zh',{hour12:false}); // 获取当前时间
+            let currentTime = dateFormat(new Date(), 'yyyy年MM月dd日 hh:mm:ss'); // 获取当前时间
             re_log = currentTime + "    尝试修复第" + re_times + "次"; // 日志信息
              // 写入日志
             files.append(logFilePath, re_log + "\n");
@@ -384,6 +384,24 @@ function join_question_with_answer(question, answers) {
     var sort_answers = ([].concat(answers)).sort()
     var key = ([question].concat(sort_answers)).join("|")
     return key
+}
+//格式化时间
+function dateFormat(thisDate, fmt) {
+    var o = {
+        "M+": thisDate.getMonth() + 1,
+        "d+": thisDate.getDate(),
+        "h+": thisDate.getHours(),
+        "m+": thisDate.getMinutes(),
+        "s+": thisDate.getSeconds(),
+        "q+": Math.floor((thisDate.getMonth() + 3) / 3),
+        "S": thisDate.getMilliseconds()
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (thisDate.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
 }
 // =====================题库函数====================
 
