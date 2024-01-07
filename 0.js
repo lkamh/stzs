@@ -14,10 +14,12 @@ var ct_path = "/sdcard/脚本/错题.json"
 var imagetext_true = "SGLxINmefgEhdVfQxDvcygAAAABJRU5ErkJggg=="// 答题正确时Image控件文本
 var imagetext_false = "LqFTlORbAU3kyEmgqiqE0FUU7iGyTs0AbJ0AEAbUJkGsQXyjcAAAAASUVORK5CYII=" // 答题错误时Image控件文本
 
-var cycle_wait_time = 1100 // 单位是毫秒
 var start_wait_time = 10000 // 每轮答题最低时长，单位是毫秒
 var globalLastdate = new Date().getTime();
 var re_times = 0;
+// =====================读取自定义配置====================
+var cycle_wait_time = STZS_CONFIG.get("cycle_wait_time", "1100");
+var chongzhi_cishu = STZS_CONFIG.get("chongzhi_cishu", "10");
 
 // ================================================
 // =====================主程序运行====================
@@ -205,7 +207,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         sleep(2000);
     } else {
         //尝试修复旧机器卡退
-        if (re_times <= 3) {
+        if (re_times <= chongzhi_cishu) {
             re_times++;
             console.error("尝试修复" + re_times + "次");
             return true;
