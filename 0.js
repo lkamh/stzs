@@ -18,6 +18,8 @@ var start_wait_time = 10000 // 每轮答题最低时长，单位是毫秒
 var globalLastdate = new Date().getTime();
 var re_times = 0;
 // =====================读取自定义配置====================
+// 读取自定义配置
+var STZS_CONFIG = storages.create("STZS_CONFIG");
 var cycle_wait_time = STZS_CONFIG.get("cycle_wait_time", "1100");
 var chongzhi_cishu = STZS_CONFIG.get("chongzhi_cishu", "10");
 
