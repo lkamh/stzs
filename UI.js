@@ -88,8 +88,8 @@ http.__okhttp__.setTimeout(10000);
 
 
 var idx_dict = {
-    "48": 0,
-    "51": 1
+    "8": 0,
+    "11": 1
 };
 // 下载并运行所选脚本
 ui.start.click(function () {
