@@ -13,9 +13,15 @@ var tk_path = "/sdcard/脚本/题库_排序版.json" // 本地题库路径
 var ct_path = "/sdcard/脚本/错题.json"
 var imagetext_true = "SGLxINmefgEhdVfQxDvcygAAAABJRU5ErkJggg=="// 答题正确时Image控件文本
 var imagetext_false = "LqFTlORbAU3kyEmgqiqE0FUU7iGyTs0AbJ0AEAbUJkGsQXyjcAAAAASUVORK5CYII=" // 答题错误时Image控件文本
+// 定义日志文件的路径
+var logFilePath = "/sdcard/脚本/挑战答题重置运行日志.log";
+// 创建日志文件
+files.createWithDirs(logFilePath);
+var re_log = "";
+
+
 
 var start_wait_time = 10000 // 每轮答题最低时长，单位是毫秒
-var globalLastdate = new Date().getTime();
 var re_times = 0;
 // =====================读取自定义配置====================
 var STZS_CONFIG = storages.create("STZS_CONFIG");
@@ -208,9 +214,13 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         sleep(2000);
     } else {
         //尝试修复旧机器卡退
-        if (re_times <= chongzhi_cishu) {
+        if (re_times < chongzhi_cishu) {
             re_times++;
-            console.error("尝试修复" + re_times + "次");
+            console.error("尝试修复第" + re_times + "次");
+            let currentTime = new Date().toLocaleString(); // 获取当前时间
+            re_log = currentTime + "    尝试修复第" + re_times + "次"; // 日志信息
+             // 写入日志
+            files.append(logFilePath, re_log + "\n");
             return true;
         } else {
             throw "Error:正确、错误image控件文本可能已经更换";
