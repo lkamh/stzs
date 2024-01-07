@@ -483,7 +483,7 @@ function do_duizhan1(renshu) {
                     // let jingmiao = new Date().toISOString().slice(0, 19).replace(/[-:]/g, "");
                     // let imgname = `${jingmiao}`;
                     console.log("开始截屏验证");
-                    img2 = captureScreen();
+                    var img2 = captureScreen();
                     // images.save(img2, pathname + "/" + imgname + ".jpg", "jpg", 50);
                     // img2.recycle();
                     img3 = images.clip(img2, xuanxiang_list_x, xuanxiang_list_y, xuanxiang_list_w, xuanxiang_list_h);
@@ -524,6 +524,7 @@ function do_duizhan1(renshu) {
                 try {
                     className("android.widget.RadioButton").findOnce().parent().click();
                     console.error("识别不出选项，盲选A");
+                    images.save(img2, pathname + "/" + "盲选" + y + ".jpg", "jpg", 60);
                 } catch (e1) {
                     log("error4:", e1);
                     err_flag = false;
