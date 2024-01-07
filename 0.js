@@ -218,7 +218,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         if (re_times < chongzhi_cishu) {
             re_times++;
             console.error("尝试修复第" + re_times + "次");
-            let currentTime = new Date().toLocaleString(); // 获取当前时间
+            let currentTime = new Date().toISOString(); // 获取当前时间
             re_log = currentTime + "    尝试修复第" + re_times + "次"; // 日志信息
              // 写入日志
             files.append(logFilePath, re_log + "\n");
