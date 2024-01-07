@@ -473,19 +473,13 @@ function do_duizhan1(renshu) {
             if (ans_list.length > 1) {
                 fTips("匹配答案:" + ans_txt);
             }
+            let serial_que = y + "." + que_txt;
             if (right_xuan != '') {
                 let idx = idx_dict[right_xuan];
                 fInfo("最终:" + right_xuan);
                 try {
-                    let serial_que = y + "." + que_txt;
                     className("android.widget.RadioButton").findOnce(idx).parent().click();
-                    if (post_answer_to_json(serial_que, allx_txt, ans_txt)) {//将问题答案写入文件
-                        fTips("写入题库成功");
-                    } else {
-                        fError("题库写入失败");
-                    }
                     //截图保存
-                    sleep(1000);
                     // let jingmiao = new Date().toISOString().slice(0, 19).replace(/[-:]/g, "");
                     // let imgname = `${jingmiao}`;
                     console.log("开始截屏验证");
@@ -526,7 +520,6 @@ function do_duizhan1(renshu) {
                         continue;
                     }
                 }
-                y++;
             } else {
                 try {
                     className("android.widget.RadioButton").findOnce().parent().click();
@@ -538,6 +531,12 @@ function do_duizhan1(renshu) {
                     continue;
                 }
             }
+            if (post_answer_to_json(serial_que, allx_txt, ans_txt)) {//将问题答案写入文件
+                fTips("写入题库成功");
+            } else {
+                fError("题库写入失败");
+            }
+            y++;
         } else {
             fError("未识别出选项，随机选择");
             className("android.widget.RadioButton").findOnce(random(0, radio_num - 1)).parent().click();
