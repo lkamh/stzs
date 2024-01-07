@@ -11,8 +11,9 @@ var query_mode = "Json"; // 服务器答案查找模式，二选一："Server" o
 var 挑战答题索引 = "000001000000000000002010" // 挑战答题部分ui相对根节点的嵌套位置索引
 var tk_path = "/sdcard/脚本/题库_排序版.json" // 本地题库路径
 var ct_path = "/sdcard/脚本/错题.json"
-var imagetext_true = "SGLxINmefgEhdVfQxDvcygAAAABJRU5ErkJggg=="// 答题正确时Image控件文本
-var imagetext_false = "LqFTlORbAU3kyEmgqiqE0FUU7iGyTs0AbJ0AEAbUJkGsQXyjcAAAAASUVORK5CYII=" // 答题错误时Image控件文本
+
+var imagetext_true = "AAAABJRU5ErkJggg=="// 答题正确时Image控件文本
+var imagetext_false = "AAAAASUVORK5CYII=" // 答题错误时Image控件文本
 // 定义日志文件的路径
 var logFilePath = "/sdcard/脚本/挑战答题重置运行日志.log";
 // 创建日志文件
@@ -198,7 +199,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
     var ansb = obj_node.child(1).bounds();
     var answers_region = [ansb.left, ansb.top, ansb.width(), ansb.height()]
     sleep(266);
-    if (text(imagetext_true).exists()) {
+    if (textEndsWith(imagetext_true).exists()) {
         console.log("点击正确");
         // 点击正确，视参数来更新答案
         var true_ans = answers[idx]
@@ -206,7 +207,7 @@ function click_answer_radio_button(answer_uis, question, answers, idx, isMustPos
         if (isMustPost) {
             post_answer(question, answers, true_ans);
         }
-    } else if (text(imagetext_false).exists()) {
+    } else if (textEndsWith(imagetext_false).exists()) {
         console.log("点击错误");
         // 点击错误，立刻截图更新答案
         var true_ans = find_true_answer_from_img(answer_uis, answers_region);
