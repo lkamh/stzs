@@ -148,7 +148,7 @@ var zhaose_thread = threads.start(function () {
                 toastLog("错题截图已保存");
                 img3.recycle();
                 img3 = null;
-                img2.recycle();
+                // img2.recycle();
                 continue;
             } else {
                 console.log("没有找到错题");
@@ -532,6 +532,7 @@ function do_duizhan1(renshu) {
                     continue;
                 }
             }
+            img2.recycle();
             if (post_answer_to_json(serial_que, allx_txt, ans_txt)) {//将问题答案写入文件
                 fTips("写入题库成功");
             } else {
